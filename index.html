@@ -18,8 +18,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             position: relative;
+            padding: 20px 0;
         }
 
         /* พื้นหลังดาวและหัวใจลอย */
@@ -54,9 +56,40 @@
             padding: 50px 40px;
             max-width: 500px;
             width: 90%;
+            margin: 20px auto;
             box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4);
             text-align: center;
             animation: slideIn 1s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                width: 95%;
+                margin: 10px auto;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .message-text {
+                font-size: 1em;
+            }
+
+            .big-heart {
+                font-size: 60px;
+            }
+
+            .button {
+                padding: 12px 30px;
+                font-size: 1em;
+                margin: 10px 5px;
+            }
+
+            .countdown-time {
+                font-size: 1.5em;
+            }
         }
 
         @keyframes slideIn {
@@ -193,9 +226,47 @@
             background: white;
             padding: 40px;
             border-radius: 20px;
-            max-width: 400px;
+            max-width: 600px;
+            width: 90%;
             text-align: center;
             animation: popIn 0.5s;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+                max-height: 85vh;
+            }
+
+            .modal h2 {
+                font-size: 1.5em;
+            }
+
+            .video-container {
+                margin: 15px 0;
+            }
         }
 
         @keyframes popIn {
@@ -260,7 +331,7 @@
         <div class="message-box">
             <p class="message-text">
                 ปีใหม่นี้ขอให้เรามีความสุขไปด้วยกันในทุกๆ วัน
-                <br>มีแต่รอยยิ้ม เสียงหัวเราะ และความทรงจำดีๆ เพิ่มขึ้นเรื่อยๆ
+                <br>มีแต่รอยยิ้ม เสียงหัวเราะ และความทรงจำดีๆ
                 <br>ขอบคุณที่อยู่ข้างๆ กันเสมอมา 💖
                 <br><br>
                 <strong>รักเธอนะ 💕</strong>
@@ -274,14 +345,13 @@
             <div class="countdown-time" id="countdown">0 วัน</div>
         </div>
 
-        <button class="button" onclick="showModal()">เปิดของขวัญความพิเศษ 💌</button>
+        <button class="button" onclick="showModal()">เปิดข้อความพิเศษ 💌</button>
         <button class="button secondary" onclick="createFireworks()">จุดดอกไม้ไฟ 🎆</button>
     </div>
 
-    <!-- Modal -->
     <div class="modal" id="modal">
         <div class="modal-content">
-            <h2>💖 ของขวัญความพิเศษ 💖</h2>
+            <h2>💖 ข้อความพิเศษ 💖</h2>
             <div class="video-container">
                 <iframe src="https://drive.google.com/file/d/1vC2cpM8Y27xSFrs11y-u0wVvwrwThXhe/preview" 
                         allow="autoplay" 
@@ -293,7 +363,6 @@
     </div>
 
     <script>
-        // สร้างหัวใจลอย
         function createFloatingHearts() {
             const container = document.getElementById('floatingHearts');
             const hearts = ['💗', '💖', '💕', '💝', '💓', '💞'];
@@ -313,7 +382,6 @@
             }, 800);
         }
 
-        // คลิกหัวใจ
         function heartClicked() {
             const heart = document.getElementById('bigHeart');
             heart.style.animation = 'none';
@@ -321,7 +389,6 @@
                 heart.style.animation = 'heartbeat 1.5s infinite';
             }, 10);
             
-            // สร้างหัวใจกระจาย
             for (let i = 0; i < 10; i++) {
                 setTimeout(() => {
                     createRandomHeart();
@@ -346,7 +413,6 @@
             }, 3000);
         }
 
-        // Modal
         function showModal() {
             document.getElementById('modal').classList.add('show');
         }
@@ -355,7 +421,6 @@
             document.getElementById('modal').classList.remove('show');
         }
 
-        // ดอกไม้ไฟ
         function createFireworks() {
             for (let i = 0; i < 30; i++) {
                 setTimeout(() => {
@@ -379,9 +444,8 @@
             }
         }
 
-        // นับวันที่อยู่ด้วยกัน (ตั้งค่าวันเริ่มต้นที่นี่)
         function updateCountdown() {
-            const startDate = new Date('2024-10-10'); // เปลี่ยนเป็นวันที่คบกัน
+            const startDate = new Date('2024-10-10'); 
             const today = new Date();
             const diffTime = Math.abs(today - startDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -389,11 +453,9 @@
             document.getElementById('countdown').textContent = diffDays + ' วัน';
         }
 
-        // เริ่มต้น
         createFloatingHearts();
         updateCountdown();
 
-        // ปิด modal เมื่อคลิกนอก content
         document.getElementById('modal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
